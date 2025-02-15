@@ -3,51 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundations of Project Leadership Capstone Project Submission</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        form {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+    <title>Capstone Submission Form</title>
 </head>
 <body>
-
     <h2>Submit Your Capstone Project</h2>
-    <p>Please enter your name and the URL to your capstone project presentation.</p>
+    <form id="submissionForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
 
-    <form action="https://formsubmit.co/cmartin@dataprepu.com" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="url" name="projectUrl" placeholder="Your Project URL" required>
-        <input type="hidden" name="_next" value="https://YOUR_GITHUB_PAGES_URL/thankyou.html">
-        <input type="hidden" name="_captcha" value="false">
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="capstoneUrl">Capstone Project URL:</label>
+        <input type="url" id="capstoneUrl" required>
+
         <button type="submit">Submit</button>
     </form>
 
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        document.getElementById("submissionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let capstoneUrl = document.getElementById("capstoneUrl").value;
+
+            Email.send({
+                SecureToken: "d7607c8e-b658-40d9-b0b6-d7abe4e95ddd",
+                To: "cmartin@dataprepu.com",
+                From: "cmartin@dataprepu.com",
+                Subject: "New Capstone Submission",
+                Body: `Name: ${name} <br> Email: ${email} <br> Capstone URL: ${capstoneUrl}`
+            }).then(
+                message => alert("Submission successful! Thank you.")
+            );
+        });
+    </script>
 </body>
 </html>
